@@ -8,7 +8,8 @@ import lombok.Data;
 public class InningsResponse {
     private Long id;
     private Long matchId;
-    private Long teamId;
+    private String battingTeam;
+    private String bowlingTeam;
     private Integer runs;
     private Integer wickets;
     private Double overs;

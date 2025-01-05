@@ -27,17 +27,19 @@ public class InningsService {
     public InningsResponse startInnings(InningsRequest inningsRequest) {
 
         Match match = matchRepository.findById(inningsRequest.getMatchId()).orElseThrow(() -> new IllegalArgumentException("match not found with id: " + inningsRequest.getMatchId()));
-        Team team = teamRepository.findById(inningsRequest.getTeamId()).orElseThrow(() -> new IllegalArgumentException("team not found with id: " + inningsRequest.getMatchId()));
+        Team battingTeam = teamRepository.findById(inningsRequest.getBattingTeamId()).orElseThrow(() -> new IllegalArgumentException("team not found with id: " + inningsRequest.getBattingTeamId()));
+        Team bowlingTeam = teamRepository.findById(inningsRequest.getBowlingTeamId()).orElseThrow(() -> new IllegalArgumentException("team not found with id: " + inningsRequest.getBowlingTeamId()));
 
         Innings innings = Innings.builder()
                 .match(match)
-                .team(team)
+                .battingTeam(battingTeam)
+                .bowlingTeam(bowlingTeam)
                 .runs(0)
                 .wickets(0)
                 .overs(0.0)
                 .build();
         Innings savedInnings = inningsRepository.save(innings);
 
-        return new InningsResponse(savedInnings.getId(), inningsRequest.getMatchId(), inningsRequest.getTeamId(), savedInnings.getRuns(), savedInnings.getWickets(), savedInnings.getOvers());
+        return new InningsResponse(savedInnings.getId(), inningsRequest.getMatchId(), battingTeam.getName(), bowlingTeam.getName(), savedInnings.getRuns(), savedInnings.getWickets(), savedInnings.getOvers());
     }
 }

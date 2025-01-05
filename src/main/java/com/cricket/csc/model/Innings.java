@@ -21,7 +21,9 @@ public class Innings {
     @ManyToOne
     private Match match;
     @ManyToOne
-    private Team team;
+    private Team battingTeam;
+    @ManyToOne
+    private Team bowlingTeam;
     private Integer runs;
     private Integer wickets;
     private Double overs;
