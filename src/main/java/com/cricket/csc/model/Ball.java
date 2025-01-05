@@ -1,5 +1,6 @@
 package com.cricket.csc.model;
 
+import com.cricket.csc.model.enums.BallType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +17,17 @@ public class Ball {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long inningsId;
-    private Long batsmanId;
+    @ManyToOne
+    private Innings innings;
+    @ManyToOne
+    private Player batsman;
+    @ManyToOne
+    private Player bowler;
+
+    private Integer run;
+
     @Enumerated(EnumType.STRING)
     private BallType ballType;
+
+    private Boolean isWicket;
 }

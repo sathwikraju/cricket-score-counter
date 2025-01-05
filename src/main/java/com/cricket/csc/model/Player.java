@@ -1,5 +1,6 @@
 package com.cricket.csc.model;
 
+import com.cricket.csc.model.enums.PlayerRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,8 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Long teamId;
+    @ManyToOne
+    private Team team;
     @Enumerated(EnumType.STRING)
     private PlayerRole role;
 

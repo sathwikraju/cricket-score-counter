@@ -1,4 +1,4 @@
-package com.cricket.csc.model;
+package com.cricket.csc.model.enums;
 
 
 public enum MatchStatus {
@@ -6,4 +6,5 @@ public enum MatchStatus {
     ONGOING,
     COMPLETED,
     CANCELLED
+
 }

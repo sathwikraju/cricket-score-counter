@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +18,14 @@ public class Innings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long matchId;
-    private Long teamId;
+    @ManyToOne
+    private Match match;
+    @ManyToOne
+    private Team team;
     private Integer runs;
     private Integer wickets;
-    private Integer overs;
+    private Double overs;
+
+    @OneToMany(mappedBy = "innings", cascade = CascadeType.ALL)
+    private List<Ball> balls;
 }
