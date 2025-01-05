@@ -10,5 +10,6 @@ import java.util.List;
 public class TeamDetailsResponse {
     private Long id;
     private String name;
+    private String location;
     private List<PlayerResponse> players;
 }

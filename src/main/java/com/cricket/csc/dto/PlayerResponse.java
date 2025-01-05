@@ -8,4 +8,5 @@ import lombok.Data;
 public class PlayerResponse {
     private Long id;
     private String name;
+    private String role;
 }

@@ -22,19 +22,20 @@ public class TeamService {
     public TeamCreationResponse createTeam(TeamRequest teamRequest) {
         Team team = Team.builder()
                 .name(teamRequest.getName())
+                .location(teamRequest.getLocation())
                 .build();
         Team savedTeam = teamRepository.save(team);
-        return new TeamCreationResponse(savedTeam.getId(), savedTeam.getName());
+        return new TeamCreationResponse(savedTeam.getId(), savedTeam.getName(), savedTeam.getLocation());
     }
 
     public TeamDetailsResponse getTeamDetails(Long id) {
         Team team = teamRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Team not found with id: " + id));
-        List<PlayerResponse> players = team.getPlayers().stream().map(player -> new PlayerResponse(player.getId(), player.getName())).toList();
-        return new TeamDetailsResponse(id, team.getName(), players);
+        List<PlayerResponse> players = team.getPlayers().stream().map(player -> new PlayerResponse(player.getId(), player.getName(), player.getRole().name().toLowerCase())).toList();
+        return new TeamDetailsResponse(id, team.getName(), team.getLocation(), players);
     }
 
     public List<TeamCreationResponse> getAllTeamDetails() {
         List<Team> teams = teamRepository.findAll();
-        return teams.stream().map(team -> new TeamCreationResponse(team.getId(), team.getName())).toList();
+        return teams.stream().map(team -> new TeamCreationResponse(team.getId(), team.getName(), team.getLocation())).toList();
     }
 }
