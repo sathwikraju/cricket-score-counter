@@ -1,7 +1,9 @@
 package com.cricket.csc.dto;
 
 import com.cricket.csc.model.enums.MatchStatus;
+import lombok.Setter;
 
+@Setter
 public class MatchStatusRequest {
     private String status;
 
@@ -9,9 +11,5 @@ public class MatchStatusRequest {
         return MatchStatus.valueOf(status.toUpperCase());
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
 
 }
