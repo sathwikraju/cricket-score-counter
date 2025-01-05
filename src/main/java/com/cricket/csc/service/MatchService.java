@@ -2,7 +2,6 @@ package com.cricket.csc.service;
 
 import com.cricket.csc.dto.MatchStatusRequest;
 import com.cricket.csc.dto.MatchStatusResponse;
-import com.cricket.csc.model.Innings;
 import com.cricket.csc.model.Match;
 import com.cricket.csc.model.Team;
 import com.cricket.csc.dto.MatchRequest;
@@ -10,7 +9,6 @@ import com.cricket.csc.dto.MatchResponse;
 import com.cricket.csc.model.enums.MatchStatus;
 import com.cricket.csc.repository.MatchRepository;
 import com.cricket.csc.repository.TeamRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 
@@ -27,7 +25,6 @@ public class MatchService {
         this.teamRepository = teamRepository;
     }
 
-    @Transactional
     public MatchResponse createMatch(MatchRequest matchRequest) {
 
         Team team1 = teamRepository.findById(matchRequest.getTeam1Id()).orElseThrow(() -> new IllegalArgumentException("Team1 not found with id: " + matchRequest.getTeam1Id()));
@@ -42,23 +39,23 @@ public class MatchService {
                 .status(MatchStatus.SCHEDULED)
                 .build();
 
-        Innings innings1 = Innings.builder()
-                .match(match)
-                .team(team1)
-                .runs(0)
-                .wickets(0)
-                .overs(0.0)
-                .build();
-
-        Innings innings2 = Innings.builder()
-                .match(match)
-                .team(team2)
-                .runs(0)
-                .wickets(0)
-                .overs(0.0)
-                .build();
-
-        match.setInnings(List.of(innings1, innings2));
+//        Innings innings1 = Innings.builder()
+//                .match(match)
+//                .team(team1)
+//                .runs(0)
+//                .wickets(0)
+//                .overs(0.0)
+//                .build();
+//
+//        Innings innings2 = Innings.builder()
+//                .match(match)
+//                .team(team2)
+//                .runs(0)
+//                .wickets(0)
+//                .overs(0.0)
+//                .build();
+//
+//        match.setInnings(List.of(innings1, innings2));
         Match savedMatch = matchRepository.save(match);
 
         return new MatchResponse(savedMatch.getId(), team1.getName(), team2.getName(), savedMatch.getDate(), savedMatch.getLocation(), savedMatch.getStatus());

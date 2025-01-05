@@ -32,4 +32,9 @@ public class TeamService {
         List<PlayerResponse> players = team.getPlayers().stream().map(player -> new PlayerResponse(player.getId(), player.getName())).toList();
         return new TeamDetailsResponse(id, team.getName(), players);
     }
+
+    public List<TeamCreationResponse> getAllTeamDetails() {
+        List<Team> teams = teamRepository.findAll();
+        return teams.stream().map(team -> new TeamCreationResponse(team.getId(), team.getName())).toList();
+    }
 }

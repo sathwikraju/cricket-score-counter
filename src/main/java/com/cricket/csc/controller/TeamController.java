@@ -6,6 +6,8 @@ import com.cricket.csc.dto.TeamRequest;
 import com.cricket.csc.service.TeamService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class TeamController {
@@ -24,5 +26,10 @@ public class TeamController {
     @GetMapping("/teams/{id}")
     public TeamDetailsResponse getTeamDetails(@PathVariable Long id) {
         return teamService.getTeamDetails(id);
+    }
+
+    @GetMapping("/teams")
+    public List<TeamCreationResponse> getAllTeamDetails() {
+        return teamService.getAllTeamDetails();
     }
 }
